@@ -1,0 +1,115 @@
+/* Start Main Rules */
+
+body {
+    background-color: #F4F4F4;
+    font-size: 16px;
+}
+h1 {
+    text-align: center;
+    color: #787878;
+}
+
+/* End Main Rules */
+
+
+
+/* Start Bootstrap nav Edit */  
+
+.navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.navbar-brand {
+    font-size: 1em;
+}
+
+.upper-bar {
+    background-color: #f8f9fa; /* لون الخلفية اختياري */
+    padding: 5px 0;
+}
+
+.upper-bar-cont {
+    display: flex;
+    justify-content: flex-end; /* نقل العناصر لأقصى اليمين */
+    align-items: center; /* محاذاة عمودية إذا كان هناك عناصر أخرى */
+}
+
+.nav-login {
+    font-size: 16px;
+    color: #007bff; /* لون النص */
+    text-decoration: none;
+}
+
+.nav-login:hover {
+    color: #0056b3; /* لون عند التمرير */
+}
+
+/* End Bootstrap nav Edit */
+
+/* Start Login Page */
+.login-page .signup-card {
+    display: none;
+}
+
+.h1-login {
+    margin:10px 0 30px 0
+}
+
+.login-page .selected {
+    color:#B22020;
+
+}
+.login-page h1 {
+    color:#C0C0C0
+}
+.login-page h1 span {
+    cursor: pointer;
+}
+
+.login-card , .signup-card {
+    width:500px;
+    
+}
+.login-card .card-header {
+    font-size: 20px;
+    color:#0D6EFD;
+    font-weight: bold;
+}
+.signup-card .card-header {
+    font-size: 20px;
+    color:#198754;
+    font-weight: bold;
+}
+
+
+/* End Login Page */
+
+/* Start Categories Page */
+
+
+.item-box {
+    position:relative;
+    padding: 20px 7px 10px 7px;
+    border-radius: 10px;
+    background-color: #FFF;
+}
+.item-box .price-tag {
+    background-color: #e0dddd;
+    padding: 2px 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+    color:#0d9d17;
+    border-radius: 8px;
+}
+.item-box img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* End Categories Page*/

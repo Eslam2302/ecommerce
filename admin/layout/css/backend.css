@@ -1,0 +1,258 @@
+/* Start Main Rules */
+
+body {
+    background-color: #F4F4F4;
+    font-size: 16px;
+}
+
+/* End Main Rules */
+
+/* Start Login Page */
+
+.login {
+    width:300px;
+    margin:100px auto;
+}
+
+.login h4 {
+    color: #555658;
+}
+
+.login input {
+    margin-bottom: 10px;
+}
+
+.login .form-control {
+    background-color: #E5E5E5;
+}
+
+.login .btn {
+    background-color: #008dde;
+}
+
+/* End Login Page */
+
+/* Start Bootstrap nav Edit */  
+
+.navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.navbar-brand {
+    font-size: 1em;
+}
+
+/* End Bootstrap nav Edit */
+
+/* Start Edit Profile page */
+
+.edit-profile-card {
+    margin-top: 30px !important;
+}
+
+.edit-profile-card .card-header {
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #FFF;
+    color:#555658;
+}
+
+
+/* End Edit Profile page */
+
+/* Start Dashboard Page */
+
+.home-stats h1 {
+    margin :25px;
+}
+.home-stats .stat {
+    padding: 20px;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 25px;
+    color: #FFF;
+    font-weight:500;
+    position: relative;
+    overflow: hidden;
+}
+
+.home-stats .stat i {
+    position: absolute;
+    font-size: 80px;
+    top:35px;
+    left: 30px;
+}
+
+.home-stats .stat .info {
+    float: right;
+}
+
+.home-stats .stat span {
+    display: block;
+    font-size: 50px;
+}
+.home-stats .stat a {
+    color:#FFF;
+    text-decoration: none;
+}
+
+.latest {
+    margin-top: 40px;
+}
+
+.home-stats .st-members {
+    background-color: #2196f3;
+}
+.home-stats .st-pending {
+    background-color:  #f40330 ;
+}
+.home-stats .st-items {
+    background-color:  #f44e03  ;
+}
+.home-stats .st-comments {
+    background-color:  #c703f4 ;
+}
+
+.latest li {
+    padding : 10px 7px;
+    margin: 4px 3px;
+    position: relative;
+    font-size: 15px;
+    font-weight:500;
+    border-radius: 10px;
+}
+.latest li:nth-child(odd) {
+    background-color: #EEE;
+}
+
+.latest .latest-users a {
+    color:#FFF;
+    text-decoration: none;
+    padding: 6px 10px;
+}
+.latest li .edit-latest {
+    position: absolute;
+    right: 5px;
+    top:3px
+}
+.latest li .active-latest {
+    position: absolute;
+    right: 80px;
+    top:3px
+}
+
+/* End Dashboard Page */
+
+/* Start Members page */
+
+.show-pass {
+    position: absolute;
+    top : 125px;
+    right :40px
+}
+
+/* End Members page */
+
+/* Start Manage Page */
+
+.main-table .btn {
+
+    padding: 2px 6px;
+    margin-right :5px;
+    color:#FFF;
+}
+
+
+/* End Manage Page */
+
+/* Start Category Page */
+.categories {margin-bottom: 30px;}
+.categories .card-header {
+    padding: 13px;
+}
+
+.categories .card-header span {
+    font-size: 18px;
+    font-weight: bold;
+}
+.categories .card-header .sorting a {
+    font-size: 16px;
+    text-decoration: none;
+    color:#888
+}
+.categories .card-header .sorting .active {
+    color: #F00;
+    font-weight: bold;
+}
+
+.categories .card-header .add-cat {
+    position: absolute;
+    top :6px;
+    right:20px
+}
+
+.categories .cat h4 {
+    margin : 0 0 10px;
+}
+.categories hr {margin:5px 0}
+.categories .card-body {padding:0}
+.categories .cat {
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.categories .cat:hover {
+    background-color: #F4F4F4;
+}
+
+.categories .cat:hover .hidden-button {
+    right:17px;
+}
+
+.categories .cat .hidden-button {
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    position: absolute;
+    top:17px;
+    right:-140px;
+}
+.categories .cat .hidden-button a {
+    margin-right: 5px;
+}
+
+.categories .cat:last-of-type ~hr {
+    display: none;
+}
+
+.categories .cat .visibilty {
+    background-color: #d35400;
+    color:#FFF;
+    padding: 4px 6px;
+    margin-right: 6px;
+    border-radius: 6px;
+}
+.categories .cat .commenting {
+    background-color: #2c3e50;
+    color:#FFF;
+    padding: 4px 6px;
+    margin-right: 6px;
+    border-radius: 6px;
+}
+.categories .cat .ads {
+    background-color: #c0302b;
+    color:#FFF;
+    padding: 4px 6px;
+    margin-right: 6px;
+    border-radius: 6px;
+}
+
+/* End Category Page */
+
+
+
+
+
+
