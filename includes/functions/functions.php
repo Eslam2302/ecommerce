@@ -20,18 +20,56 @@
 
     // Function get Items 
 
-    function getitems($catid) {
+    function getitems($where, $value) {
 
         global $con;
 
-        $getitems = $con->prepare("SELECT * FROM items WHERE Cat_ID = ? ORDER BY Item_ID ASC");
+        $getitems = $con->prepare("SELECT * FROM items WHERE $where = ? ORDER BY Item_ID ASC");
 
-        $getitems->execute(array($catid));
+        $getitems->execute(array($value));
 
         $items = $getitems->fetchAll();
 
         return $items;
 
+
+    }
+
+    // Check if user is not activated
+
+    function checkUserStatus($user) {
+
+        global $con;
+        $stmt = $con->prepare(" SELECT
+                                    Username , RegStatus
+                                FROM
+                                    users
+                                WHERE
+                                    Username = ?
+                                AND
+                                    RegStatus = 0
+                            ");
+        $stmt->execute(array($user));
+        $status = $stmt->rowCount();
+        return $status;
+    }
+
+
+
+    // Check Item function
+    // Function to check item in database
+
+    function checkItem($select,$from,$value) {
+
+        global $con;
+
+        $statemnet = $con->prepare("SELECT $select FROM $from WHERE $select = ?");
+
+        $statemnet->execute(array($value));
+
+        $count = $statemnet->rowCount();
+
+        return $count;
 
     }
 
@@ -99,22 +137,7 @@
 
     }
 
-    // Check Item function
-    // Function to check item in database
-
-    function checkItem($select,$from,$value) {
-
-        global $con;
-
-        $statemnet = $con->prepare("SELECT $select FROM $from WHERE $select = ?");
-
-        $statemnet->execute(array($value));
-
-        $count = $statemnet->rowCount();
-
-        return $count;
-
-    }
+    
 
     // Count Items or rows in database in any table
 

@@ -11,9 +11,28 @@
     <body>
         <div class="upper-bar">
             <div class="container upper-bar-cont">
+                <?php 
+                    if (isset($_SESSION['user'])) {
+
+                        echo 'Welcome ' . $sessionUser;
+
+                        echo '<a href="profile.php">My Profile</a>';
+
+                        echo ' - <a href="logout.php">Logout</a>';
+
+                        $userStatus = checkUserStatus($_SESSION['user']);
+
+                        // if ($userStatus == 1 ) {
+                        //     echo 'You Need to Activate Your Account';
+                        // }
+
+                    } else {
+
+                ?>
                 <a href="login.php" class="nav-container">
                     <span class="nav-login">Login/Signup</span>
                 </a>
+                <?php } ?>
             </div>
         </div>
         <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-inverse bg-dark border-bottom border-body" data-bs-theme="dark">
