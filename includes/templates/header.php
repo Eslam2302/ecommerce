@@ -18,6 +18,8 @@
 
                         echo '<a href="profile.php">My Profile</a>';
 
+                        echo ' - <a href="newad.php">New Ad</a>';
+
                         echo ' - <a href="logout.php">Logout</a>';
 
                         $userStatus = checkUserStatus($_SESSION['user']);
@@ -47,7 +49,7 @@
 
                         <?php 
                             foreach(getCat() as $cat) {
-                                echo '<li><a class="nav-link" href="categories.php?pageid=' . $cat['ID'] . '&pagename=' . str_replace(' ', '-',$cat['Name']) . '"/>' . $cat['Name'] . '</a></li>';
+                                echo '<li><a class="nav-link" href="categories.php?pageid=' . $cat['ID'] . '"/>' . $cat['Name'] . '</a></li>';
                             }
                         ?>
 

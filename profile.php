@@ -58,20 +58,21 @@
                     if (!empty(getitems('Member_ID' , $info['UserID']))) {
                         echo '<div class="row">';
                             foreach(getitems('Member_ID' , $info['UserID']) as $item) {
-                                echo '<div class="col-sm-6 col-md-4 col-lg-4 big-box>">';
+                                echo '<div class="col-sm-6 col-md-3 col-lg-3 big-box>">';
                                     echo '<div class="thumbnail item-box">';
                                         echo '<span class="price-tag">' . $item['Price'] . '</span>';
                                         echo '<img src="mcro.png" alt="image" class="img-fluid">';
                                         echo '<div class="caption">';
-                                            echo '<h3>' . $item['Name'] . '</h3>';
+                                            echo '<h3><a href="items.php?itemid=' . $item['Item_ID'] . '">' . $item['Name'] . '</a></h3>';
                                             echo '<p>' . $item['Description'] . '</p>';
+                                            echo '<div class="date">' . $item['Add_Date'] . '</div>';
                                         echo '</div>';
                                     echo '</div>';
                                 echo '</div>';
                         }
                         echo '</div>';
                     } else {
-                        echo 'There Is No Ads To Show';
+                        echo 'There Is No Ads To Show, , Create <a href="newad.php">New Ad</a>';
                     }
                     ?>
             </div>
@@ -102,7 +103,7 @@
 
                 } else {
 
-                    echo "There Is No Comments To Show ";
+                    echo 'There Is No Comments To Show ';
                     
                 }
 

@@ -236,7 +236,7 @@
 
                 if (empty($formErrors)) {
 
-                    // Insert User into Database
+                    // Insert Item into Database
 
                     $stmt = $con->prepare("INSERT INTO 
                                                     items(Name, Description, Price, Country_Made, Status, Add_Date, Member_ID, Cat_ID)

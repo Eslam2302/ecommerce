@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Check if user exist in database
 
         $stmt = $con->prepare(" SELECT
-                                            Username , Password
+                                            UserID, Username , Password
                                         FROM
                                             users
                                         WHERE
@@ -29,13 +29,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         AND
                                             Password = ?
                                     ");
+                                    
         $stmt->execute(array($username,$hashedPass));
+
+        $get = $stmt->fetch();
+
         $count = $stmt->rowCount();
 
         if ($count > 0) {                                       // If I find user in database
 
-            $_SESSION['user'] = $username;                  // Register Session name
-            header('location: index.php');          // Redirect to dashboard page for admin 
+            $_SESSION['user'] = $username;                      // Register Session name
+
+            $_SESSION['uid'] = $get['UserID'];                  // Register User ID in session
+
+            header('location: index.php');              // Redirect to dashboard page for admin
+
             exit();                                             // Close any thing after redirect
 
         }
