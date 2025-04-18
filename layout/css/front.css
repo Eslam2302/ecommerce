@@ -101,6 +101,18 @@ h1 {
     font-weight: bold;
 }
 
+.login-err {
+    width:500px;
+    padding: 10px;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 240px;
+    left: 520px;
+    text-align: center;
+    color: #f51111;
+    font-size: 20px;
+    font-weight: bold;
+}
 
 /* End Login Page */
 

@@ -46,6 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             exit();                                             // Close any thing after redirect
 
+        } else {
+            echo '<div class="login-err">Username Or Password Is\'t Correct</div>';
         }
     } else {
 
