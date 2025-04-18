@@ -1,5 +1,24 @@
 <?php 
 
+
+    // Get All Function 
+
+    function getAllFrom($tableName, $orderby, $where = NULL) {
+
+        global $con;
+
+        $sql = $where == NULL ? '' : $where;
+
+        $getAll = $con->prepare("SELECT * FROM $tableName $sql ORDER BY $orderby DESC");
+
+        $getAll->execute();
+
+        $all = $getAll->fetchAll();
+
+        return $all;
+
+
+    }
     
     // Function get Categories 
 
@@ -20,11 +39,13 @@
 
     // Function get Items 
 
-    function getitems($where, $value) {
+    function getitems($where, $value, $approve = NULL) {
 
         global $con;
 
-        $getitems = $con->prepare("SELECT * FROM items WHERE $where = ? ORDER BY Item_ID ASC");
+        $sql = $approve == NULL ? 'AND Approve = 1' : '';
+
+        $getitems = $con->prepare("SELECT * FROM items WHERE $where = ? $sql ORDER BY Item_ID ASC");
 
         $getitems->execute(array($value));
 

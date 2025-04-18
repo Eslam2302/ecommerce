@@ -37,12 +37,27 @@ h1 {
 
 .nav-login {
     font-size: 16px;
-    color: #007bff; /* لون النص */
+    color: #FFF; /* لون النص */
     text-decoration: none;
 }
 
 .nav-login:hover {
-    color: #0056b3; /* لون عند التمرير */
+    color: #FFF; /* لون عند التمرير */
+}
+
+.upper-bar .my-info {
+    margin-left:6px ;
+    background-color: #727170;
+}
+
+.upper-bar .my-info .text {
+    color:#FFF;
+
+}
+
+.upper-bar .my-image {
+    width: 40px;
+    height: 40px;
 }
 
 /* End Bootstrap nav Edit */
@@ -94,7 +109,7 @@ h1 {
 
 .item-box {
     position:relative;
-    padding: 20px 15px 15px 20px;
+    padding: 20px 15px 0 20px;
     border-radius: 10px;
     background-color: #fbfafa;
     box-shadow: 10px 10px 6px #cfcfcf;
@@ -116,6 +131,13 @@ h1 {
     max-height: 200px;
     object-fit: cover;
     border-radius: 8px;
+}
+
+.item-box .date {
+    text-align: right;
+    font-size: 13px;
+    color:#AAA;
+    font-weight: bold;
 }
 
 /* End Categories Page*/
@@ -151,6 +173,26 @@ h1 {
     font-weight: bold;
 }
 
+.item-box .not-approved-item {
+    position: absolute;
+    bottom:8px;
+    left: 15px;
+    background-color: #da711d;
+    padding: 3px 6px;
+    border-radius: 10px;
+    color: #FFF;
+}
+
+.item-box .caption p{
+    height: 44px;
+    max-height: 44px;
+}
+
+.information .my-btn {
+    margin-top: 10px;
+    background-color: #eee;
+}
+
 
 /* End Profile Page */
 
@@ -179,11 +221,63 @@ h1 {
     width:120px
 }
 
+
+.add-comment {
+    margin: 0 0 10px;
+}
+
+.add-comment textarea {
+    display: block;
+    margin-bottom: 10px;
+    width:500px;
+    height: 120px;
+}
+
+.login-comment {
+    font-size: 18px;
+    text-align: center;
+}
+.login-comment a {
+    text-decoration: none;
+}
+
+.comment-box {
+    margin-bottom: 20px;
+}
+
+.comment-box img {
+    max-width: 120px;
+    margin-bottom: 10px;
+    display: block;
+    margin: auto;
+}
+
+.comment-box .lead {
+    background-color: #e0e0e0;
+    position: relative;
+    padding: 10px;
+    font-weight: 400;
+}
+
+.comment-box .lead:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-width: 15px;
+    border-style: solid;
+    border-color: transparent #e0e0e0 transparent transparent;
+    position: absolute;
+    left: -28px;
+    top: 10px;
+}
+
+/* End Show Item Page */
+
+/* Start Our Custom */
+
 .custom-hr {
     border-top: 1px solid #727272 ;
 }
 
-
-
-/* End Show Item Page */
+/* End Our Custom */
 

@@ -73,7 +73,8 @@
                             <div class="row mb-3">
                                 <label for="inputEmail3" class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" 
+                                    <input 
+                                    type="text" 
                                     class="form-control live-name"
                                     name="name" 
                                     placeholder="Type Name Of Item" 
@@ -113,7 +114,7 @@
                             <div class="row mb-3">
                                 <label for="inputEmail3" class="col-sm-3 col-form-label">Status</label>
                                 <div class="col-sm-9">
-                                    <select name="status" class="form-control">
+                                    <select name="status" class="form-control" required>
                                         <option value="">...</option>
                                         <option value="1">New</option>
                                         <option value="2">Like New</option>
@@ -125,13 +126,11 @@
                             <div class="row mb-3">
                                 <label for="inputEmail3" class="col-sm-3 col-form-label">Categories</label>
                                 <div class="col-sm-9">
-                                    <select name="category" class="form-control">
+                                    <select name="category" class="form-control" required>
                                         <option value="">...</option>
                                         <?php
 
-                                            $stmt2 = $con->prepare('SELECT * FROM categories');
-                                            $stmt2->execute();
-                                            $cats = $stmt2->fetchAll();
+                                           $cats = getAllFrom('categories','ID');
                                             foreach ($cats as $cat) {
                                                 echo "<option value='" . $cat['ID'] . "'>" . $cat['Name'] . "</option>";
                                             }    

@@ -12,34 +12,34 @@
         <div class="upper-bar">
             <div class="container upper-bar-cont">
                 <?php 
-                    if (isset($_SESSION['user'])) {
+                    if (isset($_SESSION['user'])) { ?>
+                        
+                        <img class="my-image img-responsive img-thumbnail center-block rounded-circle" src="mcro.png" alt="image">
+                        <div class="btn-group dropdown my-info">
+                            <div class="btn dropdown-toggle text" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <?php echo $sessionUser; ?>
+                            </div>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
+                                <li><a class="dropdown-item" href="newad.php">New Item</a></li>
+                                <li><a class="dropdown-item" href="profile.php#my-ads">My Items</a></li>
+                                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                            </ul>
+                        </div>
 
-                        echo 'Welcome ' . $sessionUser;
-
-                        echo '<a href="profile.php">My Profile</a>';
-
-                        echo ' - <a href="newad.php">New Ad</a>';
-
-                        echo ' - <a href="logout.php">Logout</a>';
-
-                        $userStatus = checkUserStatus($_SESSION['user']);
-
-                        // if ($userStatus == 1 ) {
-                        //     echo 'You Need to Activate Your Account';
-                        // }
-
+                        <?php
                     } else {
 
                 ?>
                 <a href="login.php" class="nav-container">
-                    <span class="nav-login">Login/Signup</span>
+                    <span class="btn btn-primary nav-login">Login/Signup</span>
                 </a>
                 <?php } ?>
             </div>
         </div>
         <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-inverse bg-dark border-bottom border-body" data-bs-theme="dark">
             <div class="container">
-                <a class="navbar-brand" href="dashboard.php">Homepage</a>
+                <a class="navbar-brand" href="index.php">Homepage</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-nav" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>

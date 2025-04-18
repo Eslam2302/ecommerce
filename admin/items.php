@@ -53,7 +53,7 @@
                                     echo "<td>" . $item['Item_ID'] . "</td>";
                                     echo "<td>" . $item['Name'] . "</td>";
                                     echo "<td>" . $item['Description'] . "</td>";
-                                    echo "<td>" . $item['Price'] . "</td>";
+                                    echo "<td>" . '$' . $item['Price'] . "</td>";
                                     echo "<td>" . $item['Country_Made'] . "</td>";
                                     echo "<td>" . $item['Add_Date'] . "</td>";
                                     echo "<td>" . $item['Cat_Name'] . "</td>";
