@@ -187,7 +187,7 @@ h1 {
 
 .item-box .not-approved-item {
     position: absolute;
-    bottom:8px;
+    bottom:0;
     left: 15px;
     background-color: #da711d;
     padding: 3px 6px;

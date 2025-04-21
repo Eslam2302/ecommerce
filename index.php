@@ -11,7 +11,7 @@ include 'init.php'; ?>
     <h1 class="text-center">Items</h1>
     <div class="row">
         <?php
-            $allItems = getAllFrom('items','Item_ID', 'WHERE Approve = 1');
+            $allItems = getAllFrom('*','items', 'Item_ID', 'WHERE Approve = 1');
             foreach($allItems as $item) {
                 echo '<div class="col-sm-6 col-md-3 col-lg-3 big-box>">';
                     echo '<div class="thumbnail item-box">';

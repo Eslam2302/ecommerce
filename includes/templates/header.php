@@ -48,7 +48,7 @@
                     <ul class="navbar-nav navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 
                         <?php 
-                            foreach(getCat() as $cat) {
+                            foreach(getAllFrom('*','categories','ID','','','ASC') as $cat) {
                                 echo '<li><a class="nav-link" href="categories.php?pageid=' . $cat['ID'] . '"/>' . $cat['Name'] . '</a></li>';
                             }
                         ?>

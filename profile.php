@@ -12,6 +12,8 @@
 
         $info = $getUser->fetch();
 
+        $userid = $info['UserID'];
+
         
 ?>
 
@@ -56,9 +58,13 @@
             <div class="card-header text-bg-primary mb-3">Latest Ads</div>
             <div class="card-body">
                     <?php
-                    if (!empty(getitems('Member_ID' , $info['UserID']))) {
+
+                    $allItems = getAllFrom('*', 'items', 'Item_ID',"WHERE Member_ID = $userid",'','ASC');
+
+
+                    if (!empty($allItems)) {
                         echo '<div class="row">';
-                            foreach(getitems('Member_ID' , $info['UserID'],1) as $item) {
+                            foreach($allItems as $item) {
                                 echo '<div class="col-sm-6 col-md-3 col-lg-3 big-box>">';
                                     echo '<div class="thumbnail item-box">';
                                         // IF The item Is Not Approved
@@ -90,15 +96,11 @@
             <div class="card-body">
                 <?php 
 
-                $stmt = $con->prepare("SELECT comment From comments WHERE user_id = ?");
+                $myComments = getAllFrom("comment", "comments", "c_id", "where user_id = $userid", '', 'ASC');
+                
+                if (!empty($myComments)) {
 
-                $stmt->execute(array($info['UserID']));
-
-                $comments = $stmt->fetchAll();
-
-                if (!empty($comments)) {
-
-                    foreach ($comments as $comment) {
+                    foreach ($myComments as $comment) {
 
                         echo '<p>' . $comment['comment'] . '</p>';
 

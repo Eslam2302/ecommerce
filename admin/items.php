@@ -35,6 +35,7 @@
                     <table class=" main-table table text-center">
                         <tr>
                             <th>#ID</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Description</th>
                             <th>Price</th>
@@ -51,6 +52,7 @@
 
                                 echo "<tr>";
                                     echo "<td>" . $item['Item_ID'] . "</td>";
+                                    echo "<td><img class='item_img' src='../uploads/item_photos/" . $item['Image'] . "' alt='image'></td>";
                                     echo "<td>" . $item['Name'] . "</td>";
                                     echo "<td>" . $item['Description'] . "</td>";
                                     echo "<td>" . '$' . $item['Price'] . "</td>";
@@ -88,7 +90,7 @@
                             Add New Item
                         </div>
                         <div class="card-body">
-                            <form action="?do=Insert" method="POST">
+                            <form action="?do=Insert" method="POST" enctype="multipart/form-data">
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-3 col-form-label">Name</label>
                                     <div class="col-sm-9">
@@ -175,6 +177,16 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Item Image</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" 
+                                        class="form-control" 
+                                        name="item-file" 
+                                        placeholder="Type Country Of Made"
+                                        required>
+                                    </div>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Add Item</button>
                             </form>
                         </div>
@@ -191,6 +203,26 @@
 
                 echo "<h1 class='text-center'>Insert Item</h1>";
                 echo "<div class='container'>";
+
+                // file upload
+
+                // Upload Variables 
+
+                $itemImageName = $_FILES['item-file']['name'];
+                $itemImageSize = $_FILES['item-file']['size'];
+                $itemImageTmp = $_FILES['item-file']['tmp_name'];
+                $itemImageType = $_FILES['item-file']['type'];
+
+                // List Of Allowed Extension 
+
+                $ItemAllowedExtension = array("jpeg","jpg","png","gif","webp");
+
+                // Get Avatar Extension
+
+                $itemParts = explode('.', $itemImageName);
+                $itemImageExtension = strtolower(end($itemParts));
+
+
                 // Get variables from the form
 
                 $name = $_POST['name'];
@@ -226,6 +258,12 @@
                 if ($cat == 0) {
                     $formErrors[] = 'You Must Choose The Category';
                 }
+                if (!empty($itemImageName) && !in_array($itemImageExtension,$ItemAllowedExtension)) {
+                    $formErrors[] = 'This Extension Is Not Allowed';
+                }
+                if ($itemImageSize > 5242880) {
+                    $formErrors[] = 'Photo Can\'t Be Larger Then 5 MB';
+                }
 
                 // Loop into Error Aray
                 foreach($formErrors as $error) {
@@ -236,11 +274,15 @@
 
                 if (empty($formErrors)) {
 
+                    $itemImage = rand(0,1000000) . '_' . $itemImageName;
+                    
+                    move_uploaded_file($itemImageTmp,'..\uploads\item_photos\\' . $itemImage);
+
                     // Insert Item into Database
 
                     $stmt = $con->prepare("INSERT INTO 
-                                                    items(Name, Description, Price, Country_Made, Status, Add_Date, Member_ID, Cat_ID)
-                                                    VALUES(:zname, :zdesc, :zprice, :zcountry, :zstatus, now(), :zmember, :zcat)
+                                                    items(Name, Description, Price, Country_Made,Image, Status, Add_Date, Member_ID, Cat_ID)
+                                                    VALUES(:zname, :zdesc, :zprice, :zcountry,:zimage, :zstatus, now(), :zmember, :zcat)
                                                     ");
 
                     $stmt->execute(array(
@@ -248,13 +290,14 @@
                         'zdesc'     => $desc,
                         'zprice'    => $price,
                         'zcountry'  => $country,
+                        'zimage'    => $itemImage,
                         'zstatus'   => $status,
                         'zmember'   => $member,
                         'zcat'      => $cat,
                     ));
 
                     $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . 'Record Updated</div>';
-                    redirectHome($theMsg,'members');
+                    redirectHome($theMsg,'items');
 
                 }
 
@@ -289,7 +332,7 @@
                             Edit Item (<?php echo $item['Name']; ?>)
                         </div>
                         <div class="card-body">
-                            <form action="?do=Update" method="POST">
+                            <form action="?do=Update" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="itemid" value="<?php echo $itemid ?>">
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-3 col-form-label">Name</label>
@@ -379,6 +422,15 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Item Image</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" 
+                                        class="form-control" 
+                                        name="item-file" 
+                                        required>
+                                    </div>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Edit Item</button>
                             </form>
                         </div>
@@ -400,6 +452,22 @@
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {  // Update member
                 echo "<h1 class='text-center'>Update Item</h1>";
                 echo "<div class='container'>";
+
+                // Upload Variables 
+
+                $itemImageName = $_FILES['item-file']['name'];
+                $itemImageSize = $_FILES['item-file']['size'];
+                $itemImageTmp = $_FILES['item-file']['tmp_name'];
+                $itemImageType = $_FILES['item-file']['type'];
+
+                // List Of Allowed Extension 
+
+                $ItemAllowedExtension = array("jpeg","jpg","png","gif","webp");
+
+                // Get Avatar Extension
+
+                $itemParts = explode('.', $itemImageName);
+                $itemImageExtension = strtolower(end($itemParts));
 
                 // Get variables from the form
 
@@ -438,6 +506,12 @@
                 if ($cat == 0) {
                     $formErrors[] = 'You Must Choose The Category';
                 }
+                if (!empty($itemImageName) && !in_array($itemImageExtension,$ItemAllowedExtension)) {
+                    $formErrors[] = 'This Extension Is Not Allowed';
+                }
+                if ($itemImageSize > 5242880) {
+                    $formErrors[] = 'Photo Can\'t Be Larger Then 5 MB';
+                }
 
                 // Loop into Error Aray
                 foreach($formErrors as $error) {
@@ -447,15 +521,19 @@
                 // Check if there no error then update 
 
                 if (empty($formErrors)) {
+
+                        $itemImage = rand(0,1000000) . '_' . $itemImageName;
+                    
+                        move_uploaded_file($itemImageTmp,'..\uploads\item_photos\\' . $itemImage);
                     
                         // Update Database with the info
 
                         $stmt = $con->prepare('UPDATE items 
                         SET 
-                        Name = ?, Description = ?, Price = ?, Country_Made = ?, Status = ?, Member_ID = ?, Cat_ID = ?
+                        Name = ?, Description = ?, Price = ?, Country_Made = ?, Status = ?, Member_ID = ?, Cat_ID = ?, Image = ?
                         WHERE Item_ID = ?');
 
-                        $stmt->execute(array($name, $desc, $price, $country, $status,$member,$cat,$id));
+                        $stmt->execute(array($name, $desc, $price, $country, $status,$member,$cat,$itemImage,$id));
 
                         $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . 'Record Updated</div>';
                         redirectHome($theMsg, 'items');

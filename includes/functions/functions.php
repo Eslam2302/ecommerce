@@ -3,13 +3,11 @@
 
     // Get All Function 
 
-    function getAllFrom($tableName, $orderby, $where = NULL) {
+    function getAllFrom($field, $table, $orderfield, $where = NULL, $and = NULL, $ordering = "DESC"){
 
         global $con;
 
-        $sql = $where == NULL ? '' : $where;
-
-        $getAll = $con->prepare("SELECT * FROM $tableName $sql ORDER BY $orderby DESC");
+        $getAll = $con->prepare("SELECT $field FROM $table $where $and ORDER BY $orderfield $ordering");
 
         $getAll->execute();
 
@@ -20,42 +18,6 @@
 
     }
     
-    // Function get Categories 
-
-    function getCat() {
-
-        global $con;
-
-        $getCat = $con->prepare("SELECT * FROM categories ORDER BY ID ASC");
-
-        $getCat->execute();
-
-        $cats = $getCat->fetchAll();
-
-        return $cats;
-
-
-    }
-
-    // Function get Items 
-
-    function getitems($where, $value, $approve = NULL) {
-
-        global $con;
-
-        $sql = $approve == NULL ? 'AND Approve = 1' : '';
-
-        $getitems = $con->prepare("SELECT * FROM items WHERE $where = ? $sql ORDER BY Item_ID ASC");
-
-        $getitems->execute(array($value));
-
-        $items = $getitems->fetchAll();
-
-        return $items;
-
-
-    }
-
     // Check if user is not activated
 
     function checkUserStatus($user) {

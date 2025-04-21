@@ -16,7 +16,7 @@
                 $query = 'And RegStatus = 0';
             }
             
-            $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1 $query");
+            $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1 $query ORDER BY UserID DESC");
 
             $stmt->execute();
             
@@ -27,9 +27,10 @@
             <h1 class="text-center">Manage Member Page</h1>
             <div class="container">
                 <div class="table-responsive">
-                    <table class=" main-table table text-center">
-                        <tr>
+                    <table class=" main-table table text-center align-middle">
+                        
                             <th>#ID</th>
+                            <th>Profile</th>
                             <th>Username</th>
                             <th>Email</th>
                             <th>Full Name</th>
@@ -43,6 +44,17 @@
 
                                 echo "<tr>";
                                     echo "<td>" . $row['UserID'] . "</td>";
+
+                                    echo "<td>";    
+                                        if (!empty($row['Avatar'])) {
+                                            echo '<img class="member_img" src="../uploads/profile_photos/' . $row['Avatar'] . '" alt="image">';
+                                        } else {
+                                            echo '<img class="member_img" src="../uploads/profile_photos/no_profile.png" alt="image">';
+                                        }
+
+
+                                    echo "</td>";
+                                    
                                     echo "<td>" . $row['Username'] . "</td>";
                                     echo "<td>" . $row['Email'] . "</td>";
                                     echo "<td>" . $row['FullName'] . "</td>";
@@ -77,7 +89,7 @@
                             Add New Member
                         </div>
                         <div class="card-body">
-                            <form action="?do=insert" method="POST">
+                            <form action="?do=insert" method="POST" enctype="multipart/form-data">
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
@@ -103,6 +115,12 @@
                                     <input type="text" class="form-control" name="full" placeholder="FullName" required>
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Upload Image</label>
+                                    <div class="col-sm-10">
+                                    <input type="file" class="form-control" name="avatar">
+                                    </div>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Add Member</button>
                             </form>
                         </div>
@@ -119,6 +137,23 @@
 
                 echo "<h1 class='text-center'>Insert Member</h1>";
                 echo "<div class='container'>";
+
+                // Upload Variables 
+
+                $avatarName = $_FILES['avatar']['name'];
+                $avatarSize = $_FILES['avatar']['size'];
+                $avatarTmp = $_FILES['avatar']['tmp_name'];
+                $avatarType = $_FILES['avatar']['type'];
+
+                // List Of Allowed Extension 
+
+                $avatarAllowedExtension = array("jpeg","jpg","png","gif","webp");
+
+                // Get Avatar Extension
+
+                $avatarParts = explode('.', $avatarName);
+                $avatarExtension = strtolower(end($avatarParts));
+
                 // Get variables from the form
 
                 $user = $_POST['username'];
@@ -133,22 +168,28 @@
                 $formErrors = array();
 
                 if (strlen($user) < 4) {
-                    $formErrors[] = 'Username Cant Be less than 4 Char';
+                    $formErrors[] = 'Username Can\'t Be less than 4 Char';
                 }
                 if (strlen($user) > 20) {
-                    $formErrors[] = 'Username Cant Be More than 4 Char';
+                    $formErrors[] = 'Username Can\'t Be More than 4 Char';
                 }
                 if (empty($user)) {
-                    $formErrors[] = 'Username Cant Be Empty';
+                    $formErrors[] = 'Username Can\'t Be Empty';
                 }
                 if (empty($pass)) {
-                    $formErrors[] = 'Password Cant Be Empty';
+                    $formErrors[] = 'Password Can\'t Be Empty';
                 }
                 if (empty($email)) {
-                    $formErrors[] = 'Email Cant Be Empty';
+                    $formErrors[] = 'Email Can\'t Be Empty';
                 }
                 if (empty($name)) {
-                    $formErrors[] = 'FullName Cant Be Empty';
+                    $formErrors[] = 'FullName Can\'t Be Empty';
+                }
+                if (!empty($avatarName) && !in_array($avatarExtension,$avatarAllowedExtension)) {
+                    $formErrors[] = 'This Extension Is Not Allowed';
+                }
+                if ($avatarSize > 5242880) {
+                    $formErrors[] = 'Photo Can\'t Be Larger Then 5 MB';
                 }
 
                 // Loop into Error Aray
@@ -159,6 +200,10 @@
                 // Check if there no error then update 
 
                 if (empty($formErrors)) {
+
+                    $avatar = rand(0,1000000) . '_' . $avatarName;
+                    
+                    move_uploaded_file($avatarTmp,'..\uploads\profile_photos\\' . $avatar);
 
                     // Check if user is exist
 
@@ -174,15 +219,16 @@
                         // Insert User into Database
 
                         $stmt = $con->prepare("INSERT INTO 
-                                                        users(Username, Password,Email,FullName,RegStatus,Date)
-                                                        VALUES(:zuser,:zpass,:zmail,:zname,1,now())
+                                                        users(Username, Password,Email,FullName,RegStatus,Date,Avatar)
+                                                        VALUES(:zuser,:zpass,:zmail,:zname,1,now(),:zavatar)
                                                         ");
 
                         $stmt->execute(array(
                             'zuser' => $user,
                             'zpass'=> $hashPass,
                             'zmail'=> $email,
-                            'zname'=> $name
+                            'zname'=> $name,
+                            'zavatar' => $avatar
                         ));
 
                         $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . 'Record Updated</div>';
@@ -221,7 +267,7 @@
                                 Edit Profile
                             </div>
                             <div class="card-body">
-                                <form action="?do=Update" method="POST">
+                                <form action="?do=Update" method="POST" enctype="multipart/form-data">
                                     <input type="hidden" name="userid" value="<?php echo $userid ?>">
                                     <div class="row mb-3">
                                         <label for="inputEmail3" class="col-sm-2 col-form-label">Username</label>
@@ -248,6 +294,12 @@
                                         <input type="text" class="form-control" name="full" value="<?php echo $row['FullName']; ?>">
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Upload Image</label>
+                                        <div class="col-sm-10">
+                                        <input type="file" class="form-control" name="avatar">
+                                        </div>
+                                    </div>
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </form>
                             </div>
@@ -268,6 +320,22 @@
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {  // Update member
                 echo "<h1 class='text-center'>Update Member</h1>";
                 echo "<div class='container'>";
+
+                // Upload Variables 
+
+                $avatarName = $_FILES['avatar']['name'];
+                $avatarSize = $_FILES['avatar']['size'];
+                $avatarTmp = $_FILES['avatar']['tmp_name'];
+                $avatarType = $_FILES['avatar']['type'];
+
+                // List Of Allowed Extension 
+
+                $avatarAllowedExtension = array("jpeg","jpg","png","gif","webp");
+
+                // Get Avatar Extension
+
+                $avatarParts = explode('.', $avatarName);
+                $avatarExtension = strtolower(end($avatarParts));
 
                 // Get variables from the form
 
@@ -300,6 +368,12 @@
                 if (empty($name)) {
                     $formErrors[] = 'FullName Cant Be Empty';
                 }
+                if (!empty($avatarName) && !in_array($avatarExtension,$avatarAllowedExtension)) {
+                    $formErrors[] = 'This Extension Is Not Allowed';
+                }
+                if ($avatarSize > 5242880) {
+                    $formErrors[] = 'Photo Can\'t Be Larger Then 5 MB';
+                }
 
                 // Loop into Error Aray
                 foreach($formErrors as $error) {
@@ -309,6 +383,10 @@
                 // Check if there no error then update 
 
                 if (empty($formErrors)) {
+
+                    $avatar = rand(0,1000000) . '_' . $avatarName;
+                    
+                    move_uploaded_file($avatarTmp,'..\uploads\profile_photos\\' . $avatar);
 
                     // check if user is exist
 
@@ -323,8 +401,8 @@
 
                         // Update Database with the info
 
-                        $stmt = $con->prepare('UPDATE users SET Username = ?, Email = ?, FullName = ?, Password = ? WHERE UserID = ?');
-                        $stmt->execute(array($user, $email, $name, $pass, $id));
+                        $stmt = $con->prepare('UPDATE users SET Username = ?, Email = ?, FullName = ?, Password = ?, Avatar = ? WHERE UserID = ?');
+                        $stmt->execute(array($user, $email, $name, $pass,$avatar, $id));
 
                         $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . 'Record Updated</div>';
                         redirectHome($theMsg, 'members');
