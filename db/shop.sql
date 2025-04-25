@@ -118,7 +118,6 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`UserID`, `Username`, `Password`, `Email`, `FullName`, `GroupID`, `TrustStatus`, `RegStatus`, `Date`, `Avatar`) VALUES
-(1, 'eslam', '601f1889667efaebb33b8c12572835da3f027f78', 'eslam@gmail.com', 'eslam elsaid', 1, 0, 1, '2024-12-15', ''),
 (14, 'mohamed', '601f1889667efaebb33b8c12572835da3f027f78', '123@gmail.com', '12312', 0, 0, 1, '2024-12-15', ''),
 (15, 'zoxugymuwi', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'pumujiw@mailinator.com', 'Modi est et vitae a', 0, 0, 1, '2024-12-27', ''),
 (16, 'ahmed', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'ahmed1@gmail.com', 'Ahmed Ibrahim', 0, 0, 0, '2025-01-17', ''),
