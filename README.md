@@ -71,18 +71,9 @@ git clone https://github.com/Eslam2302/ecommerce.git
 2. **Create the database:**
 
 - Open [phpMyAdmin](http://localhost/phpmyadmin)  
-- Create a database named `ecommerce`  
+- Create a database named `shop`  
 - Import the SQL file if included, or build the schema manually based on the app
 
-3. **Configure DB connection:**
-
-Edit `includes/init.php` and set:
-
-```php
-$dsn = 'mysql:host=localhost;dbname=ecommerce';
-$user = 'root';
-$pass = '';
-```
 
 4. **Run the project:**
 
