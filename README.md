@@ -4,15 +4,29 @@ A basic E-commerce web application built using native PHP and MySQL. This projec
 
 ---
 
-### 🚀 Features
+🔧 Features
+🛠️ Admin Panel to manage users, categories, and products
 
-- ✅ Browse products by category  
-- 👤 User registration & login  
-- 🛍️ Add/Edit/Delete products (Admin)  
-- 🧾 Shopping cart system (in progress)  
-- 🔍 Filter products by category, price, or keywords  
-- 📄 Pagination for product listings  
-- 🧑‍💼 Admin dashboard to manage users, categories, and items  
+🔐 User Authentication (Login / Logout)
+
+📦 Product Management (Add, Edit, Delete with validation)
+
+🖼️ Image Upload with file type and size validation
+
+🛍️ Frontend Product Display with clean UI
+
+🗂️ Category-based Filtering
+
+🕵️‍♂️ Detailed Item View for each product
+
+💬 Comment System for item discussions (Admin approval required)
+
+🚫 Admin Controls to approve, delete, or edit user-submitted content
+
+📁 Structured Folder System for easy navigation and scalability
+
+🎨 Basic UI Styling with Bootstrap (fully responsive)
+
 
 ---
 
