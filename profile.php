@@ -70,7 +70,7 @@
                                         // IF The item Is Not Approved
                                         if($item['Approve'] == 0) { echo '<div class="not-approved-item">Waiting Approval</div>'; }
                                         echo '<span class="price-tag">' . '$' . $item['Price'] . '</span>';
-                                        echo '<img src="mcro.png" alt="image" class="img-fluid">';
+                                        echo "<img src='uploads/item_photos/" . $item['Image'] ."' alt='image' class='img-fluid'>";
                                         echo '<div class="caption">';
                                             echo '<h3><a href="items.php?itemid=' . $item['Item_ID'] . '">' . $item['Name'] . '</a></h3>';
                                             echo '<p>' . $item['Description'] . '</p>';

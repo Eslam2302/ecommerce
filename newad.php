@@ -8,6 +8,22 @@
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+            // Upload Variables 
+
+            $itemImageName = $_FILES['item-file']['name'];
+            $itemImageSize = $_FILES['item-file']['size'];
+            $itemImageTmp = $_FILES['item-file']['tmp_name'];
+            $itemImageType = $_FILES['item-file']['type'];
+
+            // List Of Allowed Extension 
+
+            $ItemAllowedExtension = array("jpeg","jpg","png","gif","webp");
+
+            // Get Avatar Extension
+
+            $itemParts = explode('.', $itemImageName);
+            $itemImageExtension = strtolower(end($itemParts));
+
             $formErrors = array();
 
             $name       = filter_var($_POST['name'], FILTER_SANITIZE_ADD_SLASHES);
@@ -35,15 +51,25 @@
             if(empty($category)) {
                 $formErrors[] = 'Category Can\'t Be Empty';
             }
+            if (!empty($itemImageName) && !in_array($itemImageExtension,$ItemAllowedExtension)) {
+                $formErrors[] = 'This Extension Is Not Allowed';
+            }
+            if ($itemImageSize > 5242880) {
+                $formErrors[] = 'Photo Can\'t Be Larger Then 5 MB';
+            }
 
 
             if (empty($formErrors)) {
 
+                $itemImage = rand(0,1000000) . '_' . $itemImageName;
+                    
+                move_uploaded_file($itemImageTmp,'uploads\item_photos\\' . $itemImage);
+
                 // Insert Item into Database
 
                 $stmt = $con->prepare("INSERT INTO 
-                                                items(Name, Description, Price, Country_Made, Status, Add_Date, Member_ID, Cat_ID)
-                                                VALUES(:zname, :zdesc, :zprice, :zcountry, :zstatus, now(), :zmember, :zcat)
+                                                items(Name, Description, Price, Country_Made, Status, Add_Date, Member_ID, Cat_ID, Image)
+                                                VALUES(:zname, :zdesc, :zprice, :zcountry, :zstatus, now(), :zmember, :zcat, :zimage)
                                                 ");
 
                 $stmt->execute(array(
@@ -54,7 +80,11 @@
                     'zstatus'   => $status,
                     'zmember'   => $_SESSION['uid'],
                     'zcat'      => $category,
+                    'zimage'    => $itemImage
                 ));
+
+                $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . 'Record Updated</div>';
+                redirectHome($theMsg, 'newad');
             }
         }
 
@@ -69,7 +99,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+                        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <label for="inputEmail3" class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9">
@@ -138,6 +168,15 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Item Image</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" 
+                                        class="form-control" 
+                                        name="item-file" 
+                                        required>
+                                    </div>
+                                </div>
                             <button type="submit" class="btn btn-primary">Add Item</button>
                         </form>
                     </div>

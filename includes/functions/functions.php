@@ -56,6 +56,49 @@
 
     }
 
+    // Redirect Function
+
+    function redirectHome($theMsg, $url = null, $seconds = 3) { 
+
+        if ($url === null) {
+
+            $url = 'index.php';
+
+        } elseif($url == 'members') {
+            $url = 'members.php';
+        }elseif($url == 'dashboard') {
+            $url = 'dashboard.php';
+        } elseif($url == 'categories') {
+            $url = 'categories.php';
+        }elseif($url == 'items') {
+            $url = 'items.php';
+        }elseif($url == 'comments') {
+            $url = 'comments.php';
+        }elseif($url == 'newad') {
+            $url = 'newad.php';
+        } else {
+
+            if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] !== '') {
+
+                $url = $_SERVER['HTTP_REFERER'];
+
+            } else {
+
+                $url = 'index.php';
+
+            }
+
+        }
+
+        echo $theMsg;
+        echo "<div class='alert alert-info'>You Will Be Directed After $seconds Seconds</div>";
+
+        header("refresh:$seconds;url=$url");
+        exit();
+
+    }
+
+
 
 
 
@@ -80,46 +123,7 @@
          else {echo 'Default';}
     }
 
-    // Redirect Function
-
-    function redirectHome($theMsg, $url = null, $seconds = 3) { 
-
-        if ($url === null) {
-
-            $url = 'index.php';
-
-        } elseif($url == 'members') {
-            $url = 'members.php';
-        }elseif($url == 'dashboard') {
-            $url = 'dashboard.php';
-        } elseif($url == 'categories') {
-            $url = 'categories.php';
-        }elseif($url == 'items') {
-            $url = 'items.php';
-        }elseif($url == 'comments') {
-            $url = 'comments.php';
-        } else {
-
-            if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] !== '') {
-
-                $url = $_SERVER['HTTP_REFERER'];
-
-            } else {
-
-                $url = 'index.php';
-
-            }
-
-        }
-
-        echo $theMsg;
-        echo "<div class='alert alert-info'>You Will Be Directed After $seconds Seconds</div>";
-
-        header("refresh:$seconds;url=$url");
-        exit();
-
-    }
-
+    
     
 
     // Count Items or rows in database in any table

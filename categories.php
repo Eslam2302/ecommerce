@@ -15,7 +15,7 @@ include 'init.php'; ?>
                     echo '<div class="col-sm-6 col-md-3 col-lg-3 big-box>">';
                         echo '<div class="thumbnail item-box">';
                             echo '<span class="price-tag">' . '$' . $item['Price'] . '</span>';
-                            echo '<img src="mcro.png" alt="image" class="img-fluid img-responsive img-thumbnail">';
+                            echo "<img class='img-fluid img-responsive img-thumbnail' src='uploads/item_photos/" . $item['Image'] . "' alt='image'>";
                             echo '<div class="caption">';
                                 echo '<h3><a href="items.php?itemid=' . $item['Item_ID'] . '">' . $item['Name'] . '</a> </h3>';
                                 echo '<p>' . $item['Description'] . '</p>';
